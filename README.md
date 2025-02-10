@@ -6,12 +6,11 @@ Con esta actividad vas a conseguir desarrollar en Angular completo con un sistem
 de componentes y rutas funcional que se conecta a un servicio de BBDD a través de  
 una api externa.  
 Los objetivos para cumplir en esta práctica son los siguiente:
-▸ Averiguar cuantos componentes necesitamos y crearlos.
-▸ Crear el sistema de rutas para cada componente.
-▸ Crear componentes hijos si lo consideras necesario.
-▸ Comunicar los componentes a través de los medios necesarios para que los datos
-lleguen a cada uno de los elementos.
-▸ El trabajo con formularios y validaciones  
+*  Averiguar cuantos componentes necesitamos y crearlos.
+*  Crear el sistema de rutas para cada componente.
+*  Crear componentes hijos si lo consideras necesario.
+*  Comunicar los componentes a través de los medios necesarios para que los datos lleguen a cada uno de los elementos.
+*  El trabajo con formularios y validaciones  
 **Pautas de elaboración**  
 Crear una aplicación con Angular que tenga sistema de rutas y cargue CSS.  
 Una vez que la aplicación este creada debéis cargar Bootstrap como framework de css para  
