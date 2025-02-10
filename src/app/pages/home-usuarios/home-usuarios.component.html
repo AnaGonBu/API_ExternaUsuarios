@@ -1,0 +1,14 @@
+<div class="container text-center mt-3">
+    <div class="row row-cols-3">
+    @for(usuario of arrMostrar; track usuario._id){
+    <article class="col">
+        <app-usuario-card [miUsuario]="usuario"></app-usuario-card>
+    </article>
+    }
+    </div>
+</div>
+<div class="d-flex justify-content-center mt-3 ">
+    <button class="btn btn-dark me-2" (click)="retroceder()" [disabled]="btnAnteriorDisabled">Anterior</button>
+    <button class="btn btn-dark" (click)="avanzar()"[disabled]="btnSiguienteDisabled">Siguiente</button>
+</div>
+

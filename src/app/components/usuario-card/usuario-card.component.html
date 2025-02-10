@@ -1,0 +1,11 @@
+<section class="card mt-3 align-content-center">
+            <figure class="col-md-3 m-auto">
+                <img class="img-fluid rounded-circle object-fit-cover" [src]="miUsuario.image" [alt]="miUsuario.username">
+            </figure>
+            <div class="col-md-9 text-center w-100">
+                <h6>{{nombreCompleto}}</h6>
+                <div class="d-flex justify-content-center">
+                    <app-botonera [parent]="'card'" [_id]="miUsuario._id"></app-botonera>
+                </div>
+            </div>
+</section>
