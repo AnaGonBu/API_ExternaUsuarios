@@ -34,7 +34,7 @@ export class BotoneraComponent {
       const usuario = await firstValueFrom(this.usuariosService.getById(_id));
         const confirmacion = await swal({
             text: `¿Seguro que desea eliminar el usuario ${usuario.username}?`,
-            buttons:['No!',true] ,
+            buttons:['No!','Si!'] ,
         });
   
     if (confirmacion) {

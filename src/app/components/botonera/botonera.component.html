@@ -1,14 +1,14 @@
 <div class="d-flex gap-2">
     @if(parent == 'card'){
-        <a [routerLink]="['/user', _id]" class="btn btn-link text-black">
+        <a [routerLink]="['/user', _id]" class="btn btn-link text-black ">
             <img src="https://img.icons8.com/?size=100&id=123415&format=png&color=000000" alt="Ver detalle" width="20" height="20"> 
             <br>
             Ver Detalle</a>
-            <a [routerLink]="['/updateuser', _id]" class="btn btn-link text-black">
+            <a [routerLink]="['/updateuser', _id]" class="btn btn-link text-black ">
                 <img src="https://img.icons8.com/?size=100&id=47821&format=png&color=000000" alt="Actualizar" width="20" height="20"> 
                 <br>
                 Actualizar</a>
-            <button class="btn btn-link text-black" (click)="borrarUsuario(_id)">
+            <button class="btn btn-link text-black " (click)="borrarUsuario(_id)">
                 <img src="https://img.icons8.com/?size=100&id=82708&format=png&color=000000" alt="Borrar" width="20" height="20"> 
                 <br>
                 Borrar</button>
