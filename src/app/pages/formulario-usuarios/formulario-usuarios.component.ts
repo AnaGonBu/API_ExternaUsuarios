@@ -2,8 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import swal from 'sweetalert';
 import { Usuario } from '../../interfaces/usuario';
 import { UsuarioServiceService } from '../../services/usuario-service.service';
+
 
 @Component({
   selector: 'app-formulario-usuarios',
@@ -63,11 +65,11 @@ export class FormularioUsuariosComponent {
       if (this.parent === 'insertar') {
         this.usuariosService.insert(user).subscribe({
           next: () => {
-            alert("Cliente dado de alta con éxito");
+            swal("Cliente dado de alta con éxito", "success");
             this.router.navigate(['/']);
           },
           error: (error) => {
-            alert("Error al dar de alta el usuario");
+            swal ( "Oops" ,  "No hemos podido dar de alta el usuario!" ,  "error" )
             console.error('Error al dar de alta el usuario:', error);
             // Mostrar un mensaje de error al usuario
           }
@@ -75,11 +77,11 @@ export class FormularioUsuariosComponent {
       } else if (this.parent === 'modificar') {
         this.usuariosService.update(user).subscribe({
           next: () => {
-            alert("Cliente actualizado con éxito");
+            swal('Yeahh!!!',"Cliente actualizado con éxito");
             this.router.navigate(['/']);
           },
           error: (error) => {
-            alert("Error al actualizar el usuario");
+            swal ( "Oops" ,  "No hemos podido actualizar el usuario!" ,  "error" )
             console.error('Error al actualizar el usuario:', error);
             // Mostrar un mensaje de error al usuario
           }
