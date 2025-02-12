@@ -89,26 +89,4 @@ export class FormularioUsuariosComponent {
       }
     }
   }
-  // constructor() {
-  //   this.usuarioForm = new FormGroup({
-  //     first_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-  //     last_name: new FormControl('', [Validators.required, Validators.minLength(4)]),
-  //     username: new FormControl('', [Validators.required]),
-  //     email: new FormControl('', [Validators.required, Validators.email]),
-  //     image: new FormControl('', [Validators.required]),
-  //     password: new FormControl('', [Validators.required, Validators.minLength(4)])
-  //   });
-  // }
-  // ngOnInit(): void {
-  //   this.rutaActiva.params.subscribe((params:any) => {
-  //     if (params._id) {
-  //       this.parent = 'modificar';
-  //       this.tipo = 'modificar';
-  //       this.cargarUsuario(params._id);
-  //     } else {
-  //       this.tipo = 'alta';
-  //     }
-  //   });
-  // }
-
 }

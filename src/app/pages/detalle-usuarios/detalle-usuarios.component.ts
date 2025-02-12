@@ -30,7 +30,7 @@ export class DetalleUsuariosComponent {
         },
         error: (error) => {
           console.log('No se ha podido recuperar el usuario: ', error);
-          // Puedes mostrar un mensaje de error al usuario aquí
+          
         }
       });
     });
