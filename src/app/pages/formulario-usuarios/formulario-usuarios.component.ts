@@ -26,6 +26,7 @@ export class FormularioUsuariosComponent {
 
 
   usuarioForm: FormGroup = new FormGroup({
+    _id: new FormControl(''),
     first_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
     last_name: new FormControl('', [Validators.required, Validators.minLength(4)]),
     username: new FormControl('', [Validators.required]),
@@ -64,8 +65,8 @@ export class FormularioUsuariosComponent {
   
       if (this.parent === 'insertar') {
         this.usuariosService.insert(user).subscribe({
-          next: () => {
-            swal("Cliente dado de alta con éxito", "success");
+          next: (usuario:Usuario) => {
+            swal(`Cliente ${usuario.first_name} dado de alta con éxito`);
             this.router.navigate(['/']);
           },
           error: (error) => {
@@ -76,8 +77,8 @@ export class FormularioUsuariosComponent {
         });
       } else if (this.parent === 'modificar') {
         this.usuariosService.update(user).subscribe({
-          next: () => {
-            swal('Yeahh!!!',"Cliente actualizado con éxito");
+          next: (usuario:Usuario) => {
+            swal(`Yeahhh!, el cliente ${usuario.first_name} actualizado con éxito`);
             this.router.navigate(['/']);
           },
           error: (error) => {

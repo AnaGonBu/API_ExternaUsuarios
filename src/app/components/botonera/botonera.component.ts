@@ -1,6 +1,8 @@
 import { Component, inject, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import swal from 'sweetalert';
+import { Usuario } from '../../interfaces/usuario';
 import { UsuarioServiceService } from '../../services/usuario-service.service';
 
 @Component({
@@ -23,21 +25,23 @@ export class BotoneraComponent {
   constructor(){
     this._id = "";
     this.parent ="";
+   
   }
 
 
   async borrarUsuario(_id: string) {
     try {
+      const usuario = await firstValueFrom(this.usuariosService.getById(_id));
         const confirmacion = await swal({
-            text: "¿Seguro que desea eliminar el usuario?",
+            text: `¿Seguro que desea eliminar el usuario ${usuario.username}?`,
             buttons:['No!',true] ,
         });
   
     if (confirmacion) {
       this.usuariosService.delete(_id).subscribe({
-        next: () => {
+        next: (usuario:Usuario) => {
           this.router.navigate(['/home']);
-                    swal("Cliente eliminado con éxito");
+                    swal(`Cliente ${usuario.first_name} eliminado con éxito`);
         },
         error: (error) => {
           console.error('Error al eliminar el usuario:', error);
