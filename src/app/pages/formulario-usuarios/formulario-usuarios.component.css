@@ -1,3 +1,18 @@
 .btn{
     color: rgb(234, 131, 215);
 }
+.text{
+    color:blue
+    
+}
+input.ng-invalid.ng-touched{
+    border-bottom: rgb(234, 131, 215);
+}
+.error{
+    color: rgb(234, 131, 215);
+    font-size: 80%;
+    margin: 0% 0% 0% 15px;
+}
+.card{
+    border-color: 3px black;
+}

@@ -16,6 +16,7 @@ import { UsuarioServiceService } from '../../services/usuario-service.service';
 })
 export class FormularioUsuariosComponent {
 
+
   router = inject(Router);
   usuariosService = inject(UsuarioServiceService);
   rutaActiva = inject(ActivatedRoute);
@@ -89,5 +90,9 @@ export class FormularioUsuariosComponent {
         });
       }
     }
+  }
+  checkControl(formControlName: string, validador: string): boolean | undefined {
+    return this.usuarioForm.get(formControlName)?.hasError(validador)
+    && this.usuarioForm.get(formControlName)?.touched
   }
 }
