@@ -1,5 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import swal from 'sweetalert';
 import { UsuarioServiceService } from '../../services/usuario-service.service';
 
 @Component({
@@ -25,19 +26,22 @@ export class BotoneraComponent {
   }
 
 
-  borrarUsuario(_id: string) {
-    const confirmacion = confirm('¿Estás seguro que deseas eliminar al usuario?'+ this._id);
+  async borrarUsuario(_id: string) {
+    try {
+        const confirmacion = await swal({
+            text: "¿Seguro que desea eliminar el usuario?",
+            buttons:['No!',true] ,
+        });
   
     if (confirmacion) {
-      
       this.usuariosService.delete(_id).subscribe({
         next: () => {
           this.router.navigate(['/home']);
-          alert('Se ha eliminado correctamente el usuario.');
+                    swal("Cliente eliminado con éxito");
         },
         error: (error) => {
           console.error('Error al eliminar el usuario:', error);
-          // Mostrar un mensaje de error al usuario
+                    swal ( "Oops" ,  "No hemos peliminar el usuario!" ,  "error" )
         }
       });
     } else {
@@ -51,8 +55,13 @@ export class BotoneraComponent {
         this.router.navigate(['/']);
       }
     }
+    } catch (error) {
+        console.error('Error en la confirmación:', error);
+        swal ( "Oops" ,  "No hemos podido eliminar el usuario!" ,  "error" )
+    }
   }
 
 
 
 }
+
