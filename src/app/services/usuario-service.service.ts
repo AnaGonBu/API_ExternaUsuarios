@@ -33,9 +33,17 @@ export class UsuarioServiceService {
   getNombreCompleto(usuario: Usuario): string {
     return `${usuario.first_name} ${usuario.last_name}`;
   }
-  // getById(_id: string): Observable<Usuario> {
-  //   const url = `${this.baseUrl}/${_id}`;
-  //   return this.httpClient.get<Usuario>(url);
-  // }
+
+  insert(usuario:Usuario): Observable<Usuario>{
+    return this.httpClient.post<Usuario>(this.baseUrl, usuario)
+  }
+
+  update(usuario: Usuario): Observable<Usuario> {
+    const url = `${this.baseUrl}/${usuario._id}`;
+    return this.httpClient.put<Usuario>(url, usuario);
+  }
+  delete(_id:string):Observable<Usuario>{
+    return this.httpClient.delete<Usuario>(`${this.baseUrl}/${_id}`)
+  }
 
 }

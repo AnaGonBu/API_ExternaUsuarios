@@ -7,65 +7,106 @@ import { UsuarioServiceService } from '../../services/usuario-service.service';
 
 @Component({
   selector: 'app-formulario-usuarios',
-  standalone:true,
-  imports: [RouterLink, ReactiveFormsModule,CommonModule],
+  standalone: true,
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './formulario-usuarios.component.html',
-  styleUrl: './formulario-usuarios.component.css'
+  styleUrls: ['./formulario-usuarios.component.css']
 })
 export class FormularioUsuariosComponent {
 
+  router = inject(Router);
+  usuariosService = inject(UsuarioServiceService);
+  rutaActiva = inject(ActivatedRoute);
 
-  router =inject(Router)
-  usuariosService= inject (UsuarioServiceService)
-  rutaActiva = inject(ActivatedRoute)
-
-  usuarioForm:FormGroup;
-  //tipo: string;
-  miUsuario!:Usuario;
+  miUsuario!: Usuario;
   parent: string ;
+  //usuarioForm : FormGroup;
 
-  constructor(){
-    //this.tipo= "insertar";
-    this.parent= 'Insertar'
-    this.usuarioForm = new FormGroup ({
-      first_name: new FormControl('', [Validators.required,Validators.min(3), Validators.max(15)]),
-      last_name: new FormControl('', [Validators.required, Validators.min(4)]),
-      username: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required,Validators.min(0), Validators.max(10)]),
-      image: new FormControl('', [Validators.required]),
-      password: new FormControl('',[Validators.required,Validators.min(4)])
-    },
-      [])
-  }
-  ngOnInit(): void {
-    this.rutaActiva.params.subscribe((params:any)=>{
-      if (params._id){
-        this.parent = 'modificar'
-        //this.tipo= "actualizar"
-        this.usuariosService.getById(params._id).subscribe({
-          next: (usuario) => {
-          let user= this.miUsuario = usuario;
 
-            this.usuarioForm = new FormGroup ({
-              first_name: new FormControl(usuario.first_name, [Validators.required,Validators.min(3), Validators.max(15)]),
-              last_name: new FormControl(usuario.last_name, [Validators.required, Validators.min(4)]),
-              username: new FormControl(usuario.username, [Validators.required]),
-              email: new FormControl(usuario.email, [Validators.required,Validators.min(0), Validators.max(10)]),
-              image: new FormControl(usuario.image, [Validators.required]),
-              password: new FormControl(usuario.password,[Validators.required,Validators.min(4)])
-            },
-              [])
-          },
-          error: (error) => {
-            console.error('Error al obtener el usuario:', error);
-            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
-          }
-        });
+  usuarioForm: FormGroup = new FormGroup({
+    first_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
+    last_name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    username: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    image: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(4)])
+  });
+
+
+  constructor() {
+
+    this.parent ="insertar"
+    this.rutaActiva.params.subscribe((params:any) => {
+      if (params._id) {
+        this.parent = 'modificar';
+        this.cargarUsuario(params._id);
       }
     });
   }
+
+  cargarUsuario(_id: string) {
+    this.usuariosService.getById(_id).subscribe({
+      next: (usuario:Usuario) => {
+        this.miUsuario = usuario;
+        this.usuarioForm.patchValue(usuario);
+      },
+      error: (error) => {
+        console.error('Error al obtener el usuario:', error);
+      }
+    });
+  }
+
   getDataForm() {
-    throw new Error('Method not implemented.');
+    if (this.usuarioForm.valid) {
+      const user: Usuario = this.usuarioForm.value as Usuario;
+  
+      if (this.parent === 'insertar') {
+        this.usuariosService.insert(user).subscribe({
+          next: () => {
+            alert("Cliente dado de alta con éxito");
+            this.router.navigate(['/']);
+          },
+          error: (error) => {
+            alert("Error al dar de alta el usuario");
+            console.error('Error al dar de alta el usuario:', error);
+            // Mostrar un mensaje de error al usuario
+          }
+        });
+      } else if (this.parent === 'modificar') {
+        this.usuariosService.update(user).subscribe({
+          next: () => {
+            alert("Cliente actualizado con éxito");
+            this.router.navigate(['/']);
+          },
+          error: (error) => {
+            alert("Error al actualizar el usuario");
+            console.error('Error al actualizar el usuario:', error);
+            // Mostrar un mensaje de error al usuario
+          }
+        });
+      }
     }
+  }
+  // constructor() {
+  //   this.usuarioForm = new FormGroup({
+  //     first_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
+  //     last_name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+  //     username: new FormControl('', [Validators.required]),
+  //     email: new FormControl('', [Validators.required, Validators.email]),
+  //     image: new FormControl('', [Validators.required]),
+  //     password: new FormControl('', [Validators.required, Validators.minLength(4)])
+  //   });
+  // }
+  // ngOnInit(): void {
+  //   this.rutaActiva.params.subscribe((params:any) => {
+  //     if (params._id) {
+  //       this.parent = 'modificar';
+  //       this.tipo = 'modificar';
+  //       this.cargarUsuario(params._id);
+  //     } else {
+  //       this.tipo = 'alta';
+  //     }
+  //   });
+  // }
 
 }
